@@ -1,3 +1,20 @@
+// Preloader and Entry Animation
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+
+    setTimeout(() => {
+        preloader.classList.add('fade-out');
+        
+        // Trigger entry animations after preloader starts fading
+        setTimeout(() => {
+            if (header) header.classList.add('loaded');
+            if (nav) nav.classList.add('loaded');
+        }, 400);
+    }, 1800); // Sync with CSS ghost-entrance animation duration
+});
+
 // Reveal elements on scroll
 function reveal() {
     var reveals = document.querySelectorAll(".reveal");
