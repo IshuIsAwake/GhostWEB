@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST | Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="docs-page">
+    <div class="top-bar">
+        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" class="top-btn" target="_blank">Documentation</a>
+        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/API_Reference.md" class="top-btn" target="_blank">API Reference</a>
+    </div>
+    <nav>
+        <a href="index.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Overview</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle">
+            <span>Appearance</span>
+        </button>
+    </nav>
+
+    <main class="docs-main">
+        <div class="docs-container">
+            <section class="docs-header">
+                <h1>GHOST Architecture</h1>
+                <p class="subtitle">Deep Reference: Design, Mathematics, and Implementation</p>
+            </section>
+
+            <section class="docs-content">
+                <div class="docs-card">
+                    <h2>What Problem Are We Solving?</h2>
+                    <p>A regular camera captures three numbers per pixel. A hyperspectral camera captures hundreds, creating a unique "spectral fingerprint" for every material. GHOST labels every pixel with its correct material class while remaining <strong>data-agnostic</strong>—it discovers band counts, class counts, and topologies at runtime.</p>
+                    <div class="api-table-wrapper">
+                        <table class="api-table">
+                            <thead>
+                                <tr><th>Challenge</th><th>GHOST Solution</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>High Dimensionality</td><td>Volumetric 3D Convolutions</td></tr>
+                                <tr><td>Class Imbalance</td><td>RSSP Specialist Hierarchy</td></tr>
+                                <tr><td>Domain Shift</td><td>Self-configuring nnUNet-style logic</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="docs-card">
+                    <h2>1. Continuum Removal</h2>
+                    <p>Normalizes away brightness and albedo to isolate intrinsic absorption features. Enforced as a differentiable <code>nn.Module</code> at the front of every forward pass.</p>
+                    <div class="docs-code-block">
+                        <code># s_min, s_max are per-pixel band extremes</code>
+                        <code>continuum(λ) = s_min + (s_max - s_min) × (λ / (C - 1))</code>
+                        <code>CR(λ) = s(λ) / (continuum(λ) + ε)</code>
+                    </div>
+                </div>
+
+                <div class="docs-card">
+                    <h2>2. Spectral 3D Convolution Stack</h2>
+                    <p>Treats the channel dimension as volumetric depth. Models local spectral correlations explicitly using a spectral kernel size of 7, coupling it with 3x3 spatial context.</p>
+                    <div class="docs-math">
+                        <code>Input (B, C, H, W) → Reshape (B, 1, C, H, W) → Conv3d(7, 3, 3)</code>
+                    </div>
+                </div>
+
+                <div class="docs-card">
+                    <h2>3. Squeeze-and-Excitation (SE) Block</h2>
+                    <p>Learned channel attention. After the 3D stack produces over-complete features, the SE block recalibrates them by asking: "which channels matter for this particular image?"</p>
+                </div>
+
+                <div class="docs-card">
+                    <h2>4. 2D U-Net Encoder / Decoder</h2>
+                    <p>Progression through 32 → 64 → 128 → 256 → 512 channels. Captures multi-scale spatial context while preserving fine detail via skip connections. Bilinear interpolation ensures support for any input dimension.</p>
+                </div>
+
+                <div class="docs-card">
+                    <h2>5. RSSP — Recursive Spectral Splitting</h2>
+                    <p>Builds a binary hierarchy using Spectral Angle Mapper (SAM) distance. Spectrally distant classes are separated early, while similar ones are handled by specialist sub-models.</p>
+                    <div class="docs-math">
+                        <code>SAM(μ_i, μ_j) = arccos( (μ_i · μ_j) / (||μ_i|| × ||μ_j||) )</code>
+                    </div>
+                </div>
+
+                <div class="docs-card">
+                    <h2>6. SSSR — Selective Spectral State Routing</h2>
+                    <p>Replaces hard classification cascades with soft, probabilistic routing. A multi-scale 1D-CNN (narrow/mid/wide kernels) produces pixel fingerprints that guide the dynamic routing.</p>
+                </div>
+
+                <div class="docs-card">
+                    <h2>7. Training Strategy</h2>
+                    <p>Uses <strong>AdamW</strong> with a <strong>ReduceLROnPlateau</strong> scheduler. Validation is performed every 20 epochs, selecting the best model based on <strong>mIoU</strong> to ensure sensitivity to minority classes.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

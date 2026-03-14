@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST | API Reference</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .api-section { margin-bottom: 40px; }
+        .api-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .api-table th, .api-table td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color); }
+        .api-table th { font-weight: 600; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; }
+        .api-table td code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+        .api-category { margin-top: 60px; border-left: 4px solid var(--accent-blue); padding-left: 20px; }
+    </style>
+</head>
+<body class="api-page">
+    <div class="top-bar">
+        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" class="top-btn" target="_blank">Documentation</a>
+        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/API_Reference.md" class="top-btn" target="_blank">API Reference</a>
+    </div>
+    <nav>
+        <a href="index.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Overview</span>
+        </a>
+    </nav>
+
+    <main class="docs-main">
+        <div class="docs-container">
+            <section class="docs-header">
+                <h1>API Reference</h1>
+                <p class="subtitle">Detailed command-line and internal module documentation.</p>
+            </section>
+
+            <h2 class="api-category">Command Line Interface</h2>
+            <div class="api-section">
+                <h3>ghost train_rssp</h3>
+                <p>Full GHOST pipeline: SSM pretraining → RSSP tree construction → per-node forest training.</p>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead>
+                            <tr><th>Flag</th><th>Default</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>--data</code></td><td>-</td><td>Path to hyperspectral .mat cube (H, W, C).</td></tr>
+                            <tr><td><code>--depth</code></td><td>auto</td><td>Recursive depth. 'auto' stops when SAM < 0.05.</td></tr>
+                            <tr><td><code>--routing</code></td><td>hybrid</td><td>Modes: <code>hybrid</code>, <code>forest</code>, <code>soft</code>.</td></tr>
+                            <tr><td><code>--forests</code></td><td>5</td><td>Parallel ensemble members per node.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>ghost predict</h3>
+                <p>Loads a trained bundle and runs cascade inference on test data.</p>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead>
+                            <tr><th>Flag</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>--model</code></td><td>Path to <code>rssp_models.pkl</code>.</td></tr>
+                            <tr><td><code>--routing</code></td><td>Mode to use (or 'all' for comparative results).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h2 class="api-category">Python API: Datasets & Models</h2>
+            <div class="api-section">
+                <h3>HyperspectralDataset</h3>
+                <p>Universal .mat loader with stratified spatial splitting.</p>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead>
+                            <tr><th>Parameter</th><th>Role</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>train_ratio</code></td><td>Fraction of labeled pixels for training (default 0.2).</td></tr>
+                            <tr><td><code>use_fp16</code></td><td>Enables min-max normalization for half-precision safety.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>HyperspectralNet</h3>
+                <p>The core GHOST model: CR → 3D Stack → SE → 2D U-Net.</p>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead>
+                            <tr><th>Parameter</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>num_filters</code></td><td>3D spatial-spectral feature width (default 8).</td></tr>
+                            <tr><td><code>base_filters</code></td><td>U-Net encoder starting capacity (default 32).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h2 class="api-category">Python API: RSSP & SSSR</h2>
+            <div class="api-section">
+                <h3>build_rssp_tree()</h3>
+                <p>Constructs the binary spectral hierarchy from class mean statistics.</p>
+            </div>
+
+            <div class="api-section">
+                <h3>run_inference()</h3>
+                <p>Executes soft path weighting and accumulates leaf probabilities.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

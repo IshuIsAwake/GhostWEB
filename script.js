@@ -3,6 +3,7 @@ window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     const header = document.querySelector('header');
     const nav = document.querySelector('nav');
+    const topBar = document.querySelector('.top-bar');
 
     setTimeout(() => {
         preloader.classList.add('fade-out');
@@ -11,6 +12,7 @@ window.addEventListener('load', () => {
         setTimeout(() => {
             if (header) header.classList.add('loaded');
             if (nav) nav.classList.add('loaded');
+            if (topBar) topBar.classList.add('loaded');
         }, 400);
     }, 1800); // Sync with CSS ghost-entrance animation duration
 });

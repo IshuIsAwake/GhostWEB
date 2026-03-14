@@ -14,6 +14,11 @@
         <div class="loader-logo">GHOST</div>
     </div>
 
+    <div class="top-bar">
+        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" class="top-btn" target="_blank">Documentation</a>
+        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/API_Reference.md" class="top-btn" target="_blank">API Reference</a>
+    </div>
+
     <nav>
         <a href="#">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -31,17 +36,6 @@
                 <line x1="6" y1="20" x2="6" y2="14"></line>
             </svg>
             <span>Benchmarks</span>
-        </a>
-        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" target="_blank">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            <span>Documentation</span>
         </a>
         <a href="#tutorial">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -161,6 +155,70 @@ ghost --help</code></pre>
                 augmentation, and no pre-processing. Straight out-of-the-box performance.</p>
             <p class="table-note reveal">Tests were run at half the parameters with 6GB VRAM. Full capability yet to be
                 explored.</p>
+        </section>
+
+        <section id="applications">
+            <h2 class="section-title reveal">Field Deployment.</h2>
+            <div class="apps-grid">
+                <div class="app-card reveal">
+                    <div class="app-image">
+                        <img src="assets/images/Ryugu.jpg" alt="Asteroid Ryugu Surface Map">
+                    </div>
+                    <div class="app-info">
+                        <div class="app-badge">Mineral Extraction</div>
+                        <h3>Asteroid Ryugu.</h3>
+                        <p>Mapping surface morphology and mineralogical anomalies on Ryugu. GHOST segments high-reflectance boulders and hydrated minerals, aiding Hayabusa2 sampling site selection with zero manual parameterization.</p>
+                    </div>
+                </div>
+                <div class="app-card reveal">
+                    <div class="app-image">
+                        <img src="assets/images/Crism.png" alt="Mars CRISM Mineral Map">
+                    </div>
+                    <div class="app-info">
+                        <div class="app-badge">Studying Martian Surface</div>
+                        <h3>Mars CRISM.</h3>
+                        <p>High-resolution mineralogical mapping of the Martian surface. GHOST identifies phyllosilicates, olivine, and carbonates in MRO CRISM data, revealing the aqueous history of the Red Planet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture-detail">
+            <div class="rssp-container reveal">
+                <div class="rssp-content">
+                    <div class="app-badge">The Core Engine</div>
+                    <h2>RSSP Strategy.</h2>
+                    <p class="rssp-desc">Recursive Spectral Splitting (RSSP) builds a dynamic "divide-and-conquer" hierarchy. It uses <strong>Continuum Removal</strong> and <strong>Spectral Angle Mapper (SAM)</strong> distance to group similar bands, allowing it to effectively manage Minority Imbalance—essentially giving every minority a chance to be a majority.</p>
+                    <div class="rssp-features">
+                        <div class="rssp-feature">
+                            <h4>Continuum Removal.</h4>
+                            <p>Defined as the process of normalizing away brightness and albedo to isolate intrinsic absorption features.</p>
+                        </div>
+                        <div class="rssp-feature">
+                            <h4>SAM Distance.</h4>
+                            <p>Uses geometric angle mapping to determine class similarity independent of reflectance magnitude, driving the recursive split.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rssp-visual">
+                    <div class="shapes-container">
+                        <div class="shape-node level-0"></div>
+                        
+                        <div class="shape-node level-1-left"></div>
+                        <div class="shape-node level-1-right"></div>
+                        
+                        <div class="shape-node level-2-1"></div>
+                        <div class="shape-node level-2-2"></div>
+                        <div class="shape-node level-2-3"></div>
+                        <div class="shape-node level-2-4"></div>
+                        
+                        <!-- Decorative floating particles -->
+                        <div class="particle p1"></div>
+                        <div class="particle p2"></div>
+                        <div class="particle p3"></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="tutorial">
@@ -299,8 +357,11 @@ pip install -e .</code></pre>
                     <h3>Documentation</h3>
                     <p>Deep dive into the framework's core logic and spectral routing architecture.</p>
                     <div class="support-links">
-                        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" target="_blank">Open
-                            architecture.md</a>
+                        <ul>
+                            <li><a href="index.html#applications">Applications</a></li>
+                            <li><a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" target="_blank">Documentation</a></li>
+                            <li><a href="https://github.com/IshuIsAwake/GHOST/blob/main/API_Reference.md" target="_blank">API Reference</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
