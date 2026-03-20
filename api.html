@@ -1,122 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GHOST | API Reference</title>
+    <meta name="description" content="GHOST CLI API Reference — all commands and flags.">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .api-section { margin-bottom: 40px; }
-        .api-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .api-table th, .api-table td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color); }
-        .api-table th { font-weight: 600; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; }
-        .api-table td code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
-        .api-category { margin-top: 60px; border-left: 4px solid var(--accent-blue); padding-left: 20px; }
-    </style>
 </head>
+
 <body class="api-page">
+
     <div class="top-bar">
-        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/architecture.md" class="top-btn" target="_blank">Documentation</a>
-        <a href="https://github.com/IshuIsAwake/GHOST/blob/main/API_Reference.md" class="top-btn" target="_blank">API Reference</a>
+        <a href="index.html" class="top-btn">&#8592; Home</a>
+        <a href="docs.html" class="top-btn">Documentation</a>
+        <button class="top-btn-icon" id="theme-toggle" aria-label="Toggle appearance">
+            <svg id="theme-toggle-dark-icon" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+        </button>
     </div>
+
+    <!-- Left TOC Sidebar -->
     <nav>
         <a href="index.html">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
-            <span>Overview</span>
+            <span>Home</span>
+        </a>
+        <a href="#commands" data-toc="commands">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>Commands</span>
+        </a>
+        <a href="#train-rssp" data-toc="train-rssp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>train_rssp</span>
+        </a>
+        <a href="#train" data-toc="train">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>train</span>
+        </a>
+        <a href="#predict" data-toc="predict">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>predict</span>
+        </a>
+        <a href="#visualize" data-toc="visualize">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>visualize</span>
+        </a>
+        <a href="#data-format" data-toc="data-format">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>Data Format</span>
         </a>
     </nav>
 
     <main class="docs-main">
         <div class="docs-container">
+
             <section class="docs-header">
                 <h1>API Reference</h1>
-                <p class="subtitle">Detailed command-line and internal module documentation.</p>
+                <p class="subtitle">Every command. Every flag.</p>
             </section>
 
-            <h2 class="api-category">Command Line Interface</h2>
-            <div class="api-section">
-                <h3>ghost train_rssp</h3>
-                <p>Full GHOST pipeline: SSM pretraining → RSSP tree construction → per-node forest training.</p>
+            <!-- Commands Overview -->
+            <div class="docs-card" id="commands" data-section="commands">
+                <h2>Commands</h2>
+                <p>Install: <code>pip install ghost-hsi</code></p>
                 <div class="api-table-wrapper">
                     <table class="api-table">
                         <thead>
-                            <tr><th>Flag</th><th>Default</th><th>Description</th></tr>
+                            <tr><th>Command</th><th>Description</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><code>--data</code></td><td>-</td><td>Path to hyperspectral .mat cube (H, W, C).</td></tr>
-                            <tr><td><code>--depth</code></td><td>auto</td><td>Recursive depth. 'auto' stops when SAM < 0.05.</td></tr>
-                            <tr><td><code>--routing</code></td><td>hybrid</td><td>Modes: <code>hybrid</code>, <code>forest</code>, <code>soft</code>.</td></tr>
-                            <tr><td><code>--forests</code></td><td>5</td><td>Parallel ensemble members per node.</td></tr>
+                            <tr><td><code>ghost train_rssp</code></td><td>Full GHOST pipeline — tree + forests + routing</td></tr>
+                            <tr><td><code>ghost train</code></td><td>Flat model training, no RSSP tree (baseline)</td></tr>
+                            <tr><td><code>ghost predict</code></td><td>Inference on test split, compute metrics</td></tr>
+                            <tr><td><code>ghost visualize</code></td><td>Generate 3-panel segmentation figure</td></tr>
+                            <tr><td><code>ghost demo</code></td><td>Print bundled Indian Pines file paths</td></tr>
+                            <tr><td><code>ghost version</code></td><td>Print installed version</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="api-section">
-                <h3>ghost predict</h3>
-                <p>Loads a trained bundle and runs cascade inference on test data.</p>
+            <!-- ghost train_rssp -->
+            <div class="docs-card" id="train-rssp" data-section="train-rssp">
+                <h2>ghost train_rssp</h2>
+                <p>Primary training command. Builds the RSSP tree, trains per-node forest ensembles.</p>
+                <div class="terminal-window" style="margin: 24px 0;">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <button class="terminal-copy-btn" data-copy-target="api-train-rssp-example">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="api-train-rssp-example">ghost train_rssp \
+  --data /path/to/data.mat \
+  --gt   /path/to/labels.mat \
+  --loss dice --routing forest \
+  --base_filters 32 --num_filters 8 \
+  --forests 5 --leaf_forests 3 \
+  --epochs 400 --patience 50 --min_epochs 40 \
+  --out-dir runs/my_experiment</code></pre>
+                </div>
+
+                <h3 class="flag-group-title">Required</h3>
                 <div class="api-table-wrapper">
                     <table class="api-table">
-                        <thead>
-                            <tr><th>Flag</th><th>Description</th></tr>
-                        </thead>
+                        <thead><tr><th>Flag</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>--model</code></td><td>Path to <code>rssp_models.pkl</code>.</td></tr>
-                            <tr><td><code>--routing</code></td><td>Mode to use (or 'all' for comparative results).</td></tr>
+                            <tr><td><code>--data</code></td><td>Path to hyperspectral <code>.mat</code> file. Shape: <code>(H, W, Bands)</code></td></tr>
+                            <tr><td><code>--gt</code></td><td>Path to ground truth <code>.mat</code> file. Shape: <code>(H, W)</code>, integer class IDs, 0 = background</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Data</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--train_ratio</code></td><td><code>0.2</code></td><td>Fraction of labeled pixels per class for training</td></tr>
+                            <tr><td><code>--val_ratio</code></td><td><code>0.1</code></td><td>Fraction of labeled pixels per class for validation</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Model</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--base_filters</code></td><td><code>32</code></td><td>U-Net base filters. Channel progression: f → 2f → 4f → 8f → 16f</td></tr>
+                            <tr><td><code>--num_filters</code></td><td><code>8</code></td><td>Spectral 3D conv filters per layer</td></tr>
+                            <tr><td><code>--num_blocks</code></td><td><code>3</code></td><td>Number of 3D conv blocks</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Training</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--epochs</code></td><td><code>400</code></td><td>Base epoch budget for root node. Child nodes receive scaled budgets</td></tr>
+                            <tr><td><code>--lr</code></td><td><code>1e-4</code></td><td>Learning rate (AdamW)</td></tr>
+                            <tr><td><code>--loss</code></td><td><code>ce</code></td><td>Loss function: <code>ce</code>, <code>dice</code>, <code>focal</code>, <code>squared_ce</code></td></tr>
+                            <tr><td><code>--focal_gamma</code></td><td><code>2.0</code></td><td>Gamma for focal loss only</td></tr>
+                            <tr><td><code>--patience</code></td><td><code>50</code></td><td>Early stop after N epochs without improvement</td></tr>
+                            <tr><td><code>--min_epochs</code></td><td><code>40</code></td><td>Never early-stop before this epoch</td></tr>
+                            <tr><td><code>--warmup_epochs</code></td><td><code>0</code></td><td>Linear LR warmup epochs</td></tr>
+                            <tr><td><code>--val_interval</code></td><td><code>20</code></td><td>Validate every N epochs</td></tr>
+                            <tr><td><code>--seed</code></td><td><code>42</code></td><td>Random seed</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">RSSP Tree</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--depth</code></td><td><code>auto</code></td><td>Tree depth. <code>auto</code>: stops at depth 3 or SAM &lt; 0.05. <code>full</code>: always recurse. Integer: fixed max depth</td></tr>
+                            <tr><td><code>--forests</code></td><td><code>5</code></td><td>Forest ensemble size per internal node</td></tr>
+                            <tr><td><code>--leaf_forests</code></td><td><code>3</code></td><td>Forest ensemble size per leaf node (≤2 classes)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Routing</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--routing</code></td><td><code>hybrid</code></td><td>Routing mode: <code>forest</code> (recommended), <code>hybrid</code>, <code>soft</code></td></tr>
+                            <tr><td><code>--d_model</code></td><td><code>64</code></td><td>SSM fingerprint dimensionality</td></tr>
+                            <tr><td><code>--d_state</code></td><td><code>16</code></td><td>SSM filters per branch</td></tr>
+                            <tr><td><code>--ssm_epochs</code></td><td><code>300</code></td><td>SSM pretraining epochs. Set to <code>1</code> when using <code>--routing forest</code></td></tr>
+                            <tr><td><code>--ssm_lr</code></td><td><code>1e-3</code></td><td>SSM pretraining learning rate</td></tr>
+                            <tr><td><code>--ssm_save</code></td><td><code>ssm_pretrained.pt</code></td><td>SSM weights save path (inside <code>--out-dir</code>)</td></tr>
+                            <tr><td><code>--ssm_load</code></td><td><code>None</code></td><td>Load pre-existing SSM weights, skip pretraining</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Output</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--out-dir</code></td><td><code>.</code></td><td>Output directory (created if needed)</td></tr>
+                            <tr><td><code>--save</code></td><td><code>rssp_models.pkl</code></td><td>Model bundle filename</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Output Files</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>File</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>rssp_models.pkl</code></td><td>Complete model bundle: tree + all forests + SSM state</td></tr>
+                            <tr><td><code>ssm_pretrained.pt</code></td><td>Standalone SSM encoder weights</td></tr>
+                            <tr><td><code>training_history.csv</code></td><td>Epoch-by-epoch metrics for all nodes</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <h2 class="api-category">Python API: Datasets & Models</h2>
-            <div class="api-section">
-                <h3>HyperspectralDataset</h3>
-                <p>Universal .mat loader with stratified spatial splitting.</p>
+            <!-- ghost train -->
+            <div class="docs-card" id="train" data-section="train">
+                <h2>ghost train</h2>
+                <p>Flat model training — no RSSP tree. Useful as a baseline to compare against the full pipeline.</p>
+                <p>Accepts the same flags as <code>ghost train_rssp</code> for: <code>--data</code>, <code>--gt</code>, <code>--train_ratio</code>, <code>--val_ratio</code>, <code>--base_filters</code>, <code>--num_filters</code>, <code>--num_blocks</code>, <code>--epochs</code>, <code>--lr</code>, <code>--seed</code>, <code>--out-dir</code>, <code>--save</code>.</p>
+
+                <h3 class="flag-group-title">Additional Flags</h3>
                 <div class="api-table-wrapper">
                     <table class="api-table">
-                        <thead>
-                            <tr><th>Parameter</th><th>Role</th></tr>
-                        </thead>
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>train_ratio</code></td><td>Fraction of labeled pixels for training (default 0.2).</td></tr>
-                            <tr><td><code>use_fp16</code></td><td>Enables min-max normalization for half-precision safety.</td></tr>
+                            <tr><td><code>--fp16</code></td><td><code>False</code></td><td>Mixed precision training. Reduces VRAM ~40%</td></tr>
+                            <tr><td><code>--log</code></td><td><code>training_log.csv</code></td><td>Per-epoch log filename</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Output Files</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>File</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>best_model.pth</code></td><td>Best model weights (by val mIoU)</td></tr>
+                            <tr><td><code>training_log.csv</code></td><td>epoch, train_loss, val_loss, val_oa, val_miou, …</td></tr>
+                            <tr><td><code>test_results.csv</code></td><td>Final test metrics</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="api-section">
-                <h3>HyperspectralNet</h3>
-                <p>The core GHOST model: CR → 3D Stack → SE → 2D U-Net.</p>
+            <!-- ghost predict -->
+            <div class="docs-card" id="predict" data-section="predict">
+                <h2>ghost predict</h2>
+                <p>Run inference on the test split using a trained model. Outputs metric CSVs per routing mode.</p>
+                <div class="terminal-window" style="margin: 24px 0;">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <button class="terminal-copy-btn" data-copy-target="api-predict-example">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="api-predict-example">ghost predict \
+  --data  /path/to/data.mat \
+  --gt    /path/to/labels.mat \
+  --model runs/my_experiment/rssp_models.pkl \
+  --routing forest --out-dir runs/my_experiment</code></pre>
+                </div>
+
+                <h3 class="flag-group-title">Required</h3>
                 <div class="api-table-wrapper">
                     <table class="api-table">
-                        <thead>
-                            <tr><th>Parameter</th><th>Description</th></tr>
-                        </thead>
+                        <thead><tr><th>Flag</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>num_filters</code></td><td>3D spatial-spectral feature width (default 8).</td></tr>
-                            <tr><td><code>base_filters</code></td><td>U-Net encoder starting capacity (default 32).</td></tr>
+                            <tr><td><code>--data</code></td><td>Hyperspectral data <code>.mat</code> file</td></tr>
+                            <tr><td><code>--gt</code></td><td>Ground truth <code>.mat</code> file</td></tr>
+                            <tr><td><code>--model</code></td><td>Path to <code>rssp_models.pkl</code> from <code>ghost train_rssp</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Optional</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--routing</code></td><td><code>all</code></td><td><code>forest</code>, <code>hybrid</code>, <code>soft</code>, or <code>all</code> (runs all three)</td></tr>
+                            <tr><td><code>--ssm_load</code></td><td><code>None</code></td><td>Standalone SSM weights. Falls back to embedded state in pkl</td></tr>
+                            <tr><td><code>--train_ratio</code></td><td><code>0.2</code></td><td>Must match training value</td></tr>
+                            <tr><td><code>--val_ratio</code></td><td><code>0.1</code></td><td>Must match training value</td></tr>
+                            <tr><td><code>--seed</code></td><td><code>42</code></td><td>Must match training value</td></tr>
+                            <tr><td><code>--out-dir</code></td><td><code>.</code></td><td>Output directory</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Output Files</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>File</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>test_results_forest.csv</code></td><td>OA, mIoU, Dice, Precision, Recall — forest routing</td></tr>
+                            <tr><td><code>test_results_hybrid.csv</code></td><td>Same for hybrid routing</td></tr>
+                            <tr><td><code>test_results_soft.csv</code></td><td>Same for soft routing</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <h2 class="api-category">Python API: RSSP & SSSR</h2>
-            <div class="api-section">
-                <h3>build_rssp_tree()</h3>
-                <p>Constructs the binary spectral hierarchy from class mean statistics.</p>
+            <!-- ghost visualize -->
+            <div class="docs-card" id="visualize" data-section="visualize">
+                <h2>ghost visualize</h2>
+                <p>Generate a 3-panel PNG: false colour composite | ground truth | GHOST prediction.</p>
+                <div class="terminal-window" style="margin: 24px 0;">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <button class="terminal-copy-btn" data-copy-target="api-visualize-example">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="api-visualize-example">ghost visualize \
+  --data    /path/to/data.mat \
+  --gt      /path/to/labels.mat \
+  --model   runs/my_experiment/rssp_models.pkl \
+  --dataset indian_pines --routing forest \
+  --title   "GHOST — Indian Pines" \
+  --out-dir runs/my_experiment</code></pre>
+                </div>
+
+                <h3 class="flag-group-title">Required</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--data</code></td><td>Hyperspectral data <code>.mat</code> file</td></tr>
+                            <tr><td><code>--gt</code></td><td>Ground truth <code>.mat</code> file</td></tr>
+                            <tr><td><code>--model</code></td><td>Path to <code>rssp_models.pkl</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Optional</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--routing</code></td><td><code>forest</code></td><td>Routing mode for the prediction panel</td></tr>
+                            <tr><td><code>--dataset</code></td><td><code>None</code></td><td>Dataset name for class labels: <code>indian_pines</code>, <code>pavia</code>, <code>salinas</code></td></tr>
+                            <tr><td><code>--r_band</code></td><td>Bands×0.75</td><td>Band index for red channel in false colour</td></tr>
+                            <tr><td><code>--g_band</code></td><td>Bands×0.50</td><td>Band index for green channel</td></tr>
+                            <tr><td><code>--b_band</code></td><td>Bands×0.25</td><td>Band index for blue channel</td></tr>
+                            <tr><td><code>--title</code></td><td><code>GHOST Segmentation</code></td><td>Figure title</td></tr>
+                            <tr><td><code>--ssm_load</code></td><td><code>None</code></td><td>Standalone SSM weights</td></tr>
+                            <tr><td><code>--train_ratio</code></td><td><code>0.2</code></td><td>Must match training value</td></tr>
+                            <tr><td><code>--val_ratio</code></td><td><code>0.1</code></td><td>Must match training value</td></tr>
+                            <tr><td><code>--seed</code></td><td><code>42</code></td><td>Must match training value</td></tr>
+                            <tr><td><code>--out-dir</code></td><td><code>.</code></td><td>Output directory</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Output Files</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>File</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>segmentation_forest.png</code></td><td>3-panel figure, 180&thinsp;DPI, dark background</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="api-section">
-                <h3>run_inference()</h3>
-                <p>Executes soft path weighting and accumulates leaf probabilities.</p>
+            <!-- Data Format -->
+            <div class="docs-card" id="data-format" data-section="data-format">
+                <h2>Data Format</h2>
+                <p>GHOST accepts <code>.mat</code> files (MATLAB / HDF5 format). Keys inside the file are auto-detected by array dimensionality — no configuration needed.</p>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>File</th><th>Shape</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>Data file (<code>--data</code>)</td><td><code>(H, W, Bands)</code></td><td>The hyperspectral cube. Any band count.</td></tr>
+                            <tr><td>Ground truth (<code>--gt</code>)</td><td><code>(H, W)</code></td><td>Integer class labels. 0 = background (unlabeled).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 20px;">Indian Pines is bundled with the package — run <code>ghost demo</code> to get the file paths. For other datasets, see the benchmarks note on the <a href="index.html#benchmarks" style="color: var(--text-primary); text-decoration: underline;">home page</a>.</p>
             </div>
+
         </div>
     </main>
 
+    <footer>
+        <div class="docs-container footer-content">
+            <div class="footer-bottom">
+                <p>Copyright &copy; 2026 GHOST Team &mdash; Proprietary. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
+
 </html>
