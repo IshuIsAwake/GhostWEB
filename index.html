@@ -548,6 +548,18 @@ ghost demo</code></pre>
             </div>
         </section>
 
+        <!-- Why Spectral Context -->
+        <section id="why-spectral-difficult">
+            <h2 class="section-title reveal">What makes it difficult ?</h2>
+            <div class="why-spectral-block reveal">
+                <p>Spectral variance within groups is often larger than between groups. What this means is that if element A has absorption characteristics that vary significantly within its group, it can be difficult to distinguish it from element B, even if B has different absorption characteristics overall. <strong>If A has features between 100nm and 200nm while B has features between 150nm and 250nm, then the region between 150–200nm becomes highly ambiguous.</strong></p>
+                <p>Beyond overlapping signatures, real-world conditions rarely give us pristine data. Variables like illumination angles, shadows, canopy geometry, and atmospheric scattering constantly distort the readings. Two identical crop fields can yield distinct spectral profiles simply because one was imaged at noon and the other at 4 PM under thin clouds.</p>
+                <p>Because of these ambiguities, current methods in the literature—just like v0.1.x of this project—take the easy way out: they lean heavily on spatial context. They operate on the logical assumption that <strong>if 10 pixels around pixel X are corn, then X is highly likely to be corn as well.</strong> Spatial architectures like U-Nets excel at learning these neighborhood patterns, effectively smoothing over the spectral noise.</p>
+                <p>But this spatial crutch masks the underlying problem. It ties the model's performance to the specific spatial layout of the training scene. When we remove that spatial safety net in v0.2.x, the model loses the ability to infer a pixel's identity from its neighbors. It is forced to confront the raw, messy chemical reality of "mixed pixels" and atmospheric distortion on its own.</p>
+                <p>Tackling these hurdles—intraclass variance, atmospheric distortion, and high dimensionality—without relying on spatial crutches is what makes v0.2.x a formidable challenge. The model has to learn the true, underlying chemical reality amidst a sea of noise. Convex Hull Continuum Removal and SPT have proven to be quite effective at learning this spectral context, but further studies are needed.</p>
+            </div>
+        </section>
+
         <!-- Tutorial Section -->
         <section id="tutorial">
             <h2 class="section-title reveal">Start here.</h2>
