@@ -82,6 +82,16 @@
             </svg>
             <span>visualize</span>
         </a>
+        <a href="#convert-to-mat" data-toc="convert-to-mat">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <span>convert_to_mat</span>
+        </a>
         <a href="#data-format" data-toc="data-format">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -116,6 +126,7 @@
                             <tr><td><code>ghost train</code></td><td>Flat model training, no SPT tree (baseline)</td></tr>
                             <tr><td><code>ghost predict</code></td><td>Inference on test split, compute metrics</td></tr>
                             <tr><td><code>ghost visualize</code></td><td>Generate 3-panel segmentation figure</td></tr>
+                            <tr><td><code>ghost convert_to_mat</code></td><td>Convert ENVI, TIFF, GeoTIFF, HDF5/NetCDF to <code>.mat</code> — requires <code>pip install ghost-hsi[convert]</code></td></tr>
                             <tr><td><code>ghost demo</code></td><td>Print bundled Indian Pines file paths and example command</td></tr>
                             <tr><td><code>ghost version</code></td><td>Print installed version</td></tr>
                             <tr><td><code>ghost flower</code></td><td>Easter egg</td></tr>
@@ -424,6 +435,103 @@
                 </div>
             </div>
 
+            <!-- ghost convert_to_mat -->
+            <div class="docs-card" id="convert-to-mat" data-section="convert-to-mat">
+                <h2>ghost convert_to_mat</h2>
+                <p>Convert ENVI, TIFF, GeoTIFF, and HDF5/NetCDF hyperspectral images to <code>.mat</code> format with zero data loss. Requires the optional convert extras: <code>pip install ghost-hsi[convert]</code>.</p>
+                <div class="terminal-window" style="margin: 24px 0;">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <button class="terminal-copy-btn" data-copy-target="api-convert-example">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="api-convert-example">pip install ghost-hsi[convert]
+
+ghost convert_to_mat \
+  --img image.hdr \
+  --gt  labels.tif \
+  --out-dir converted/</code></pre>
+                </div>
+
+                <h3 class="flag-group-title">Required</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--img</code></td><td>Path to the hyperspectral image. Supported: ENVI (<code>.hdr</code>), TIFF/GeoTIFF (<code>.tif</code>), HDF5/NetCDF (<code>.h5</code>, <code>.nc</code>). Format is auto-detected from extension.</td></tr>
+                            <tr><td><code>--out-dir</code></td><td>Output directory (created if needed). Converted <code>.mat</code> and JSON sidecar are written here.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Optional</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>--gt</code></td><td><code>None</code></td><td>Ground truth label file. Accepts <code>.mat</code>, <code>.png</code>, <code>.tif</code>, <code>.hdr</code>.</td></tr>
+                            <tr><td><code>--crop</code></td><td><code>None</code></td><td>Spatial crop before conversion: <code>Y X H W</code> (top-left origin, height, width).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">HDF5 dataset path syntax</h3>
+                <p style="margin-bottom:16px;">For HDF5 files with multiple datasets, specify the dataset path with a colon separator:</p>
+                <div class="terminal-window" style="margin-bottom: 24px;">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <button class="terminal-copy-btn" data-copy-target="api-convert-h5-example">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="api-convert-h5-example">ghost convert_to_mat \
+  --img file.h5:/dataset/path \
+  --out-dir converted/</code></pre>
+                </div>
+
+                <h3 class="flag-group-title">Output Files</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>File</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>&lt;name&gt;.mat</code></td><td>Converted hyperspectral cube, shape <code>(H, W, Bands)</code></td></tr>
+                            <tr><td><code>&lt;name&gt;_meta.json</code></td><td>Metadata sidecar: CRS, wavelengths, spatial transforms, band names</td></tr>
+                            <tr><td><code>&lt;name&gt;_gt.mat</code></td><td>Converted ground truth (only if <code>--gt</code> is provided)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="flag-group-title">Dependencies</h3>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead><tr><th>Package</th><th>Used for</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>spectral</code></td><td>ENVI (.hdr) reading</td></tr>
+                            <tr><td><code>rasterio</code></td><td>TIFF / GeoTIFF reading, CRS and transform extraction</td></tr>
+                            <tr><td><code>h5py</code></td><td>HDF5 / NetCDF reading</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top:4px; font-size:14px; color:var(--text-secondary);">None of these are installed by <code>pip install ghost-hsi</code> alone. All three are pulled in by <code>pip install ghost-hsi[convert]</code>.</p>
+            </div>
+
             <!-- Data Format -->
             <div class="docs-card" id="data-format" data-section="data-format">
                 <h2>Data Format</h2>
@@ -438,7 +546,7 @@
                     </table>
                 </div>
                 <p style="margin-top: 20px;">Indian Pines is bundled with the package — run <code>ghost demo</code> to get the file paths. For other standard datasets (Indian Pines, Pavia University, Salinas Valley), see the <a href="http://www.ehu.eus/ccwintco/index.php/Hyperspectral_Remote_Sensing_Scenes" target="_blank" style="color: var(--text-primary); text-decoration: underline;">GIC group at UPV/EHU</a>.</p>
-                <p style="margin-top: 12px;">ENVI, GeoTIFF, and HDF5 support is planned for v0.2.x. For now, convert to <code>.mat</code> first.</p>
+                <p style="margin-top: 12px;">ENVI, GeoTIFF, and HDF5 files can be converted to <code>.mat</code> using <a href="#convert-to-mat" style="color: var(--text-primary); text-decoration: underline;"><code>ghost convert_to_mat</code></a> (v0.1.7+). Native format support without conversion is planned for v0.2.x.</p>
             </div>
 
         </div>

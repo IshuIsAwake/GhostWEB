@@ -35,6 +35,23 @@
             </svg>
             <span>Overview</span>
         </a>
+        <a href="#v017-release">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            <span>v0.1.7</span>
+        </a>
+        <a href="#generalizability">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            <span>Generalizable?</span>
+        </a>
         <a href="#results">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -55,14 +72,49 @@
             </svg>
             <span>Architecture</span>
         </a>
-        <a href="#why-spectral">
+        <a href="#why-no-comparisons">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
+            <span>Why No Comparisons</span>
+        </a>
+        <a href="#why-publish">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>Why Publish</span>
+        </a>
+        <a href="#why-spectral">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
             <span>Why Spectral</span>
+        </a>
+        <a href="#why-spectral-difficult">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <span>Why Difficult</span>
+        </a>
+        <a href="#what has been achieved">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"></polyline>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            <span>Achieved</span>
         </a>
         <a href="#tutorial">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -106,6 +158,40 @@ ghost demo</code></pre>
     </header>
 
     <div class="container">
+
+        <!-- v0.1.7 Release Block -->
+        <section id="v017-release">
+            <div class="gen-box reveal" style="padding:28px 36px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+                    <span class="arch-badge" style="margin-bottom:0;">New Release</span>
+                    <span style="font-weight:600; font-size:18px;">v0.1.7</span>
+                    <span style="font-size:13px; color:var(--text-secondary); margin-left:auto;"><a href="https://pypi.org/project/ghost-hsi/" target="_blank" rel="noopener" style="color:var(--text-secondary); text-decoration:underline; text-underline-offset:3px;">PyPI &rarr;</a></span>
+                </div>
+                <p style="font-size:15px; color:var(--text-secondary); margin-bottom:18px; line-height:1.6;">Adds <code>ghost convert_to_mat</code> — convert ENVI, TIFF, GeoTIFF, and HDF5/NetCDF hyperspectral images to <code>.mat</code> format. Auto-detects format from extension, preserves all metadata (CRS, wavelengths, band names) in a JSON sidecar, and supports ground truth in <code>.mat</code>, <code>.png</code>, <code>.tif</code>, or <code>.hdr</code>.</p>
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <button class="terminal-copy-btn" data-copy-target="v017-install-code">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="v017-install-code">pip install ghost-hsi[convert]
+
+ghost convert_to_mat \
+  --img image.hdr \
+  --gt  labels.tif \
+  --out-dir converted/</code></pre>
+                </div>
+            </div>
+        </section>
 
         <!-- Generalizability Box -->
         <section id="generalizability">
@@ -367,7 +453,7 @@ ghost demo</code></pre>
         </section>
 
         <!-- Why no comparisons ? -->
-        <section id="why-spectral">
+        <section id="why-no-comparisons">
             <h2 class="section-title reveal">Why no comparisions ?</h2>
             <div class="why-spectral-block reveal">
                 <p>Every published HSI method I'm aware of — including v0.1.x of this project — relies on spatial context. U-Nets, 3D CNNs, hybrid architectures: they all, to varying degrees, learn <em>where</em> things tend to be in a scene alongside <em>what</em> they look like spectrally. That's why they get high numbers on benchmarks. It's also why they don't generalize across scenes.</p>
@@ -376,7 +462,7 @@ ghost demo</code></pre>
             </div>
         </section>
 
-        <section id="why-spectral">
+        <section id="why-publish">
             <h2 class="section-title reveal">Then why publish at all?</h2>
             <div class="why-spectral-block reveal">
                 <p>Because three of the four things GHOST set out to do are already done.</p>
@@ -457,7 +543,6 @@ ghost demo</code></pre>
                         <span class="arch-badge">v0.1.x</span>
                         <h3>Known Limitations</h3>
                         <ul class="arch-list">
-                            <li><strong>File format:</strong> v0.1.6 and below only support <code>.mat</code> files. ENVI, GeoTIFF, and HDF5 require manual conversion first.</li>
                             <li><strong>Spatial dependence:</strong> The U-Net backbone processes neighboring pixels together. A model trained on one scene cannot reliably segment a different scene — it has learned spatial patterns alongside spectral ones.</li>
                             <li><strong>No transfer learning:</strong> Each new dataset requires a full training run from scratch. There's no way to reuse weights from a previous run in any meaningful way.</li>
                             <li><strong>Single scene only:</strong> Training and inference must be on the same scene, or at very minimum the same sensor under near-identical conditions.</li>
@@ -536,8 +621,8 @@ ghost demo</code></pre>
                                 <span class="arch-goal-desc">Every pixel classified from its spectrum alone, with no access to neighboring pixels. If it works, the model has learned material chemistry — and chemistry is the same whether the vegetation is in Indiana or Vietnam.</span>
                             </li>
                             <li>
-                                <strong>Multiple file formats</strong>
-                                <span class="arch-goal-desc">ENVI (.hdr), GeoTIFF (.tif), HDF5 (.h5) in addition to .mat. Auto-detected by extension. No manual conversion step.</span>
+                                <strong>Native multi-format support</strong>
+                                <span class="arch-goal-desc">ENVI (.hdr), GeoTIFF (.tif), HDF5 (.h5) read directly by the training and inference pipeline — no conversion step needed. v0.1.7 ships <code>ghost convert_to_mat</code> as a bridge in the meantime.</span>
                             </li>
                             <li>
                                 <strong>Multi-scene training and inference</strong>
